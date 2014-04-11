@@ -2,7 +2,7 @@
 
 #########################################################################################
 #
-# JCUserImport.sh - imports Linux users into JumpCloud(tm)
+# JC_UserImport.sh - imports Linux users into JumpCloud(tm)
 #
 # This script provides two main benefits:
 #
@@ -211,6 +211,25 @@ getAllMissedUserAccounts() {
     done
 }
 
+APIKeyIsValid() {
+    login="${1}"
+
+    result=`curl --silent \
+        -d "{\"filter\": [{\"username\" : \"${login}\"}]}" \
+        -X 'GET' \
+        -H 'Content-Type: application/json' \
+        -H 'Accept: application/json' \
+        -H "x-api-key: ${jumpCloudAPIKey}" \
+        "https://console.jumpcloud.com/api/systemusers"`
+
+    if [ "${result}" = "Unauthorized" ]
+    then
+        return 1
+    fi
+
+    return 0
+}
+
 findAccountInJumpCloud() {
     login="${1}"
 
@@ -247,6 +266,14 @@ addAccountToJumpCloud() {
 }
 
 runningAsRoot || exit 1
+
+APIKeyIsValid
+
+if [ ${?} -eq 1 ]
+then
+    echo "ERROR: The API key is unauthorized."
+    exit 1
+fi
 
 #
 # Do we have any users we don't know what to do with?
