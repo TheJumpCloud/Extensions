@@ -75,16 +75,11 @@ guest
 EOF
 }
 
-######
-# --------------------------- END USER CUSTOMIZATION SECTION  ---------------------------
-######
 
 #
 # Script code to follow should require no user modification.
 #
 shadowFile="/etc/shadow"
-
-procName=`basename $0`
 
 #
 # This includes the names of default users created by installer packages. It is pre-pended
@@ -264,7 +259,7 @@ then
     echo ""
     echo "       ${missed}"
     echo ""
-    echo "Please add these users to one of the above locations, and re-run ${procName}"
+    echo "Please add these users to one of the above locations, and re-run JCUserImport.sh"
     echo ""
     echo "Exiting with return code 1"
     exit 1
