@@ -19,7 +19,7 @@
 #########################################################################################
 
 servers="agent.jumpcloud.com kickstart.jumpcloud.com"
-ports="443 444"
+ports="443"
 
 #
 # Set the pathes of the following commands as appropriate for your server
