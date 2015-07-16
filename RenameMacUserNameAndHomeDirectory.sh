@@ -23,7 +23,7 @@ fi
 oldUser=$1
 newUser=$2
 
-if [[ -z ${newUser} ]]
+if [[ -z "${newUser}" ]]
 then
 	abort "New user name must not be empty!"
 fi
